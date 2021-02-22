@@ -7,7 +7,7 @@ import os
 import re
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from collections import Counter
-import numpy
+import numpy as np
 from spacy.attrs import ENT_IOB, ENT_TYPE
 import pandas as pd
 from spacytextblob.spacytextblob import SpacyTextBlob
@@ -45,27 +45,29 @@ def preprocessing(path):
 
 def extraData(path):
     df = pd.read_csv(path)
-    return df['Comment Question']
+    return df
 
 # WIP
-def convert_label():
+def convert_label(df):
     conditions = [
-        (df['sentiment'] == "Object"),
-        (df['sentiment'] == "Support") & (df['sentiment'] == 9)
+        (df['sentiment'] == 'Object'),
+        (df['sentiment'] == 'Support'),
+        (df['sentiment'] == 'Neutral')
     ]
 
     # create a list of the values we want to assign for each condition
-    values = ['tier_4', 'tier_3', 'tier_2', 'tier_1']
+    values = [-1, 1, 0]
 
     # create a new column and use np.select to assign values to it using our lists as arguments
-    df['tier'] = np.select(conditions, values)
+    df['sentiment'] = np.select(conditions, values)
 
     # display updated DataFrame
-    df.head()
+    print(df['sentiment'])
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     data = extraData("data/Hackathon Data - Keystone.csv")
-    print(data)
-    get_sentiment(data)
+    # print(data)
+    # get_sentiment(data)
+    convert_label(data)
