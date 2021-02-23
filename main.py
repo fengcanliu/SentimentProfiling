@@ -113,8 +113,8 @@ if __name__ == '__main__':
     # Predicting with a test dataset
     sample_prediction = pipe_countvect.predict(X_test)
 
-    for (sample, pred) in zip(X_test, sample_prediction):
-        print(sample, "Prediction=>", pred)
+    # for (sample, pred) in zip(X_test, sample_prediction):
+    #     print(sample, "Prediction=>", pred)
 
     # Accuracy
     print("Accuracy: ", pipe_countvect.score(X_test, y_test))
