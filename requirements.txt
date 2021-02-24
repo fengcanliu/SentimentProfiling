@@ -2,4 +2,4 @@ sklearn
 numpy
 spacy
 pandas
-pickle
+joblib
